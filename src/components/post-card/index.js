@@ -12,7 +12,7 @@ function PostCard({ post }) {
         <div className="info">
           <div className="date">{date}</div>
           <div className="categories">
-            {post.categories
+            {categories
               // .filter((category, i) => i < post.categories.length-1)
               .map((category, i) => {
                 if (i !== post.categories.length - 1)
