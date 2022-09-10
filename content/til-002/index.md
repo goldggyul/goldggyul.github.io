@@ -1,6 +1,6 @@
 ---
 emoji: 🍊
-title: 파이썬 문법 정리 | TIL ＃3
+title: 파이썬 문법 정리 | TIL ＃2
 date: '2022-09-09 23:05:00'
 author: goldggyul
 tags: TIL Python

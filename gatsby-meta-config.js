@@ -82,7 +82,7 @@ module.exports = {
       {
         title: 'Todoary 앱 서버 개발 (진행중)',
         description:
-          'UMC 동아리에서 시작한 앱 런칭 프로젝트입니다. 디자이너, IOS, Android, 서버 개발자분들과 협업하고 있습니다. 첫 프로젝트임에도 멋진 팀원분들 덕에 UMC 데모데이에서 ✨대상✨을 받고 런칭을 목표로 개발중입니다.',
+          'UMC 동아리에서 시작한 앱 런칭 프로젝트입니다. 디자이너, IOS, Android, 서버 개발자분들과 협업하고 있습니다. 처음으로 서버 개발자로 참여한 프로젝트임에도 불구하고 멋진 팀원분들 덕에 UMC 데모데이에서 ✨대상✨을 받고 런칭을 목표로 개발중입니다.',
         techStack: ['Spring Boot', 'Amazon ec2', 'Amazon RDS', 'Github Actions CI/CD'],
         thumbnailUrl: 'todoary.png',
         links: {

@@ -1,6 +1,6 @@
 ---
 emoji: 🍊
-title: Synchronous vs. Non-blocking? / 파이썬 기본 문법 정리 | TIL ＃2
+title: Synchronous vs. Non-blocking? / 파이썬 기본 문법 정리 | TIL ＃1
 date: '2022-09-08 18:30:00'
 author: goldggyul
 tags: TIL Python
