@@ -111,18 +111,8 @@ li = [input() for _ in range(n)]
 
   - 2차원 리스트 입력받기
 
-    ```python{numberLines: true}
+    ```python
     import sys
-    li = []
-    n = int(sys.stdin.readline()) # 리스트 행 수
-    for i in range(n):
-      li.append(list(map(int, sys.stdin.readline())))
-      import sys
-    li = []
-    n = int(sys.stdin.readline()) # 리스트 행 수
-    for i in range(n):
-      li.append(list(map(int, sys.stdin.readline())))
-      import sys
     li = []
     n = int(sys.stdin.readline()) # 리스트 행 수
     for i in range(n):
