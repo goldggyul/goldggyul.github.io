@@ -11,17 +11,19 @@ const Layout = ({ children, showHitCounter=false }) => {
       site {
         siteMetadata {
           title
+          siteUrl
           author {
             name
             social {
               github
+              email
             }
           }
         }
       }
     }
   `);
-  const { title, author } = data.site.siteMetadata;
+  const { title, siteUrl, author } = data.site.siteMetadata;
 
   return (
     <div className="page-wrapper">
@@ -29,7 +31,8 @@ const Layout = ({ children, showHitCounter=false }) => {
       <main className="page-content">{children}</main>
       <PageFooter showHitCounter={showHitCounter}
         author={author.name || `Author`}
-        githubUrl={author.social?.github || `https://www.github.com`}
+        siteUrl={siteUrl}
+        social={ author.social}
       />
       <ThemeSwitch />
     </div>
