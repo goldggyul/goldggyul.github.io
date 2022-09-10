@@ -24,9 +24,10 @@
     .category {
       margin-right: 4px;
       font-weight: 600;
-      color: var(--primary-text-color);
+      color: var(--tab-text-color); //var(--primary-text-color);
 
       &:hover {
+        color: #333333;
         text-decoration: underline;
       }
     }
