@@ -72,4 +72,52 @@
   justify-content: center;
   width: 100%;
   margin-bottom: 20px;
+
+.markdown code,
+.markdown pre {
+  font-family: Hack,
+    Menlo,
+    Monaco,
+    monospace;
+  font-weight: normal;
+}
+
+.markdown code.language-text {
+  border-radius: 3px;
+  font-size: 85%;
+  padding: 0.2em 0.4em;
+  font-weight: bold;
+}
+
+// .gatsby-highlight {
+//   background-color: #2d2d2d;
+//   border-radius: 0.3em;
+//   margin: 0.5em 0;
+//   padding: 1em;
+//   overflow: auto;
+// }
+
+.gatsby-highlight pre[class*="language-"].line-numbers {
+  margin: 0.5em 0;
+  padding: em;
+  padding-left: 3em;
+  overflow: initial;
+}
+
+// line number 표시될 때 왼쪽 패딩
+.gatsby-highlight pre[class*="language-"].line-numbers {
+  padding-left: 55px;
+}
+
+.line-numbers-rows {
+  border: none;
+  padding: 1em 0em 1em 1em;
+}
+
+.line-numbers-rows>span:before {
+  padding-right: 0.3em;
+}
+
+.line-numbers .line-numbers-rows {
+  border: none;
 }
