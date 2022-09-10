@@ -11,6 +11,9 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    font-family: 'catamaran';
+    font-weight: 700;
+    //color: #333333;
     @include content-max-width;
 
     .link {

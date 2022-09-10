@@ -33,11 +33,14 @@
   }
 
   .title {
-    font-weight: 600;
+    //font-weight: 600;
     font-size: 32px;
     color: var(--primary-text-color);
     margin-bottom: 6px;
     line-height: 1.3;
+
+    font-family: 'catamaran';
+    font-weight: 900;
   }
 
   .info {
