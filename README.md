@@ -1,5 +1,7 @@
 <h1 align="center">
-  Zoomkoding Gatsby Blog
+  <a href="https://github.com/zoomKoding/zoomkoding-gatsby-blog">
+    Zoomkoding Gatsby Blog
+  </a>
 </h1>
 
 <p align="center">

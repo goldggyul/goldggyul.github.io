@@ -18,7 +18,7 @@ function HomePage({ data }) {
 
   return (
     <Layout showHitCounter={ true }>
-      <Seo title="개발 농장 | 뀰" />
+      <Seo title="뀰의 개발 농장" />
       <Bio author={author} language={language} />
       <PostTabs
         posts={posts}

@@ -1,6 +1,6 @@
 module.exports = {
   title: `goldggyul.io 👩🏻‍💻`,
-  description: `뀰의 개발 농장`,
+  description: `Hi! I'm a developer`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
   siteUrl: `https://goldggyul.github.io`,
   ogImage: `/welcome_image.png`, // Path to your in the 'static' folder
