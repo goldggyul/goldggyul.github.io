@@ -2,18 +2,20 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Layout from '../layout';
 import Seo from '../components/seo';
-import Bio from '../components/bio';
+// import Bio from '../components/bio';
 import TimeStampSection from '../components/timestamp-section';
 import ProjectSection from '../components/project-section';
+import ImgHeader from '../components/img-header';
 
 function AboutPage({ data }) {
   const metaData = data.site.siteMetadata;
-  const { author, about, language } = metaData;
+  const { author, about, /*language*/ } = metaData;
   const { timestamps, projects } = about;
   return (
     <Layout>
       <Seo title="About" />
-      <Bio author={author} language={language} />
+      <ImgHeader author={author} />
+      {/* <Bio author={author} language={language} /> */}
       <TimeStampSection timestamps={timestamps} />
       <ProjectSection projects={projects} />
     </Layout>
@@ -35,6 +37,7 @@ export const pageQuery = graphql`
             role
             description
             thumbnail
+            about
           }
           social {
             github

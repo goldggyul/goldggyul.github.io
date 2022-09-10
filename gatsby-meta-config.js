@@ -16,6 +16,7 @@ module.exports = {
       role: `백엔드 개발자`,
       description: ['안녕하세요!', 'Good morning\n y\'all~'],
       thumbnail: 'moving_ggyul.gif', // Path to the image in the 'asset' folder
+      about: 'hi.png', // about 페이지에서 bio 란에 나올 것
     },
     social: {
       github: `https://github.com/goldggyul`, // `https://github.com/zoomKoding`,
