@@ -5,7 +5,7 @@ import PageFooter from '../components/page-footer';
 import ThemeSwitch from '../components/theme-switch';
 import './style.scss';
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showHitCounter=false }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
     <div className="page-wrapper">
       <PageHeader siteTitle={title || `Title`} />
       <main className="page-content">{children}</main>
-      <PageFooter
+      <PageFooter showHitCounter={showHitCounter}
         author={author.name || `Author`}
         githubUrl={author.social?.github || `https://www.github.com`}
       />

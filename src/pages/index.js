@@ -17,7 +17,7 @@ function HomePage({ data }) {
   const onTabIndexChange = useCallback((e, value) => setTabIndex(value), []);
 
   return (
-    <Layout>
+    <Layout showHitCounter={ true }>
       <Seo title="개발 농장 | 뀰" />
       <Bio author={author} language={language} />
       <PostTabs
