@@ -22,6 +22,15 @@ body {
 
 a {
     color: var(--link-text-color);
+    font-weight: bold;
+}
+
+.bio .thumbnail-wrapper{
+    animation: moving 0.5s 1 linear;
+}
+
+.bio strong {
+    animation: flutter 2s infinite linear;
 }
 
 .page-wrapper {

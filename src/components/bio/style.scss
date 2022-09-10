@@ -1,4 +1,4 @@
-@use '../../styles/mixins'as *;
+@use '../../styles/mixins' as *;
 
 @keyframes blinking-cursor {
   0% {
@@ -14,13 +14,83 @@
   }
 }
 
+@-webkit-keyframes flutter {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  35% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(-5deg);
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  65% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes flutter {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  35% {
+    transform: rotate(0deg);
+  }
+
+  40% {
+    transform: rotate(-5deg);
+  }
+
+  60% {
+    transform: rotate(5deg);
+  }
+
+  65% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes moving {
+  0% {
+    transform: translateY(-800px);
+    opacity: 0;
+  }
+  75% {
+    transform: translateY(30px);
+    opacity: 0.75;
+  }
+  85%{
+    transform: translateY(-30px);
+    opacity: 0.85;
+  }
+  100% {
+  }
+}
+
 .bio {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  margin-top: 120px;
-  margin-bottom: 120px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 0px 30px;
 
   color: var(--primary-text-color);
 
@@ -44,8 +114,9 @@
     }
 
     &.korean {
-      font-weight: 100;
-      font-size: 32px;
+      font-family: 'GmarketSansMedium';
+      font-weight: normal;
+      font-size: 40px;
       line-height: 1.2;
 
       .title {
