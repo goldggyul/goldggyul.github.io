@@ -1,26 +1,26 @@
 module.exports = {
-  title: `zoomkoding.com`,
-  description: `줌코딩의 개발일기`,
+  title: `goldggyul.io 👩🏻‍💻`,
+  description: `뀰의 개발 농장`,
   language: `ko`, // `ko`, `en` => currently support versions for Korean and English
-  siteUrl: `https://www.zoomkoding.com`,
-  ogImage: `/og-image.png`, // Path to your in the 'static' folder
+  siteUrl: `https://goldggyul.github.io`,
+  ogImage: `/welcome_image.png`, // Path to your in the 'static' folder
   comments: {
     utterances: {
-      repo: ``, // `zoomkoding/zoomkoding-gatsby-blog`,
+      repo: `goldggyul/goldggyul.github.io`, // `zoomkoding/zoomkoding-gatsby-blog`,
     },
   },
-  ga: '0', // Google Analytics Tracking ID
+  ga: 'G-P8JQXFL045', // Google Analytics Tracking ID
   author: {
-    name: `정진혁`,
+    name: `뀰🍊`,
     bio: {
-      role: `개발자`,
-      description: ['사람에 가치를 두는', '능동적으로 일하는', '이로운 것을 만드는'],
-      thumbnail: 'sample.png', // Path to the image in the 'asset' folder
+      role: `백엔드 개발자`,
+      description: ['안녕하세요!', 'Good morning\n y\'all~'],
+      thumbnail: 'moving_ggyul.gif', // Path to the image in the 'asset' folder
     },
     social: {
-      github: ``, // `https://github.com/zoomKoding`,
+      github: `https://github.com/goldggyul`, // `https://github.com/zoomKoding`,
       linkedIn: ``, // `https://www.linkedin.com/in/jinhyeok-jeong-800871192`,
-      email: ``, // `zoomkoding@gmail.com`,
+      email: `wakegyul@gmail.com`, // `zoomkoding@gmail.com`,
     },
   },
 
@@ -43,13 +43,21 @@ module.exports = {
       // ========================================================
       // ========================================================
       {
-        date: '2021.02 ~',
-        activity: '개인 블로그 개발 및 운영',
-        links: {
-          post: '/gatsby-starter-zoomkoding-introduction',
-          github: 'https://github.com/zoomkoding/zoomkoding-gatsby-blog',
-          demo: 'https://www.zoomkoding.com',
-        },
+        date: '2019.03 ~',
+        activity: '컴퓨터공학부 재학중'
+      },
+      {
+        date: '2019.09 ~ 2022.02',
+        activity: '게임 회사 인턴 & 게임 클라이언트 프로그래머'
+      },
+      {
+        date: '2022.03 ~',
+        activity: 'UMC(MakeUs) 앱/웹 개발 동아리 2기 서버 ',
+        // links: {
+        //   post: '/gatsby-starter-zoomkoding-introduction',
+        //   github: 'https://github.com/zoomkoding/zoomkoding-gatsby-blog',
+        //   demo: 'https://www.zoomkoding.com',
+        // },
       },
     ],
 
@@ -72,15 +80,15 @@ module.exports = {
       // ========================================================
       // ========================================================
       {
-        title: '개발 블로그 테마 개발',
+        title: 'Todoary 앱 서버 개발 (진행중)',
         description:
-          '개발 블로그를 운영하는 기간이 조금씩 늘어나고 점점 많은 생각과 경험이 블로그에 쌓아가면서 제 이야기를 담고 있는 블로그를 직접 만들어보고 싶게 되었습니다. 그동안 여러 개발 블로그를 보면서 좋았던 부분과 불편했던 부분들을 바탕으로 레퍼런스를 참고하여 직접 블로그 테마를 만들게 되었습니다.',
-        techStack: ['gatsby', 'react'],
-        thumbnailUrl: 'blog.png',
+          'UMC 동아리에서 시작한 앱 런칭 프로젝트입니다. 디자이너, IOS, Android, 서버 개발자분들과 협업하고 있습니다. 첫 프로젝트임에도 멋진 팀원분들 덕에 UMC 데모데이에서 ✨대상✨을 받고 런칭을 목표로 개발중입니다.',
+        techStack: ['Spring Boot', 'Amazon ec2', 'Amazon RDS', 'Github Actions CI/CD'],
+        thumbnailUrl: 'todoary.png',
         links: {
-          post: '/gatsby-starter-zoomkoding-introduction',
-          github: 'https://github.com/zoomkoding/zoomkoding-gatsby-blog',
-          demo: 'https://www.zoomkoding.com',
+          //post: '/gatsby-starter-zoomkoding-introduction',
+          github: 'https://github.com/Todoary',
+          demo: 'https://nonstop-asparagus-df0.notion.site/Todoary-1971eaf8084c471395c46bbd748ad38f',
         },
       },
     ],
