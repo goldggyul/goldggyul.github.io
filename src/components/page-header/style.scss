@@ -19,11 +19,16 @@
     .link {
       font-weight: 700;
       font-size: 17px;
-      color: var(--primary-text-color);
+      color: var(--tab-text-color); //var(--primary-text-color);
 
       @include md {
         font-weight: 700;
         font-size: 20px;
+      }
+
+      &:hover {
+        color: #333333;
+        text-decoration: underline;
       }
     }
 
