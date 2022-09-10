@@ -15,8 +15,8 @@ function PostNavigator({ prevPost, nextPost }) {
       </div>
       <div className="post-navigator-card-wrapper">
         {prevPost && (
-          <Link className="post-card next" key={prevPost.id} to={prevPost.slug}>
-            <div className="direction">다음 글</div>
+          <Link className="post-card next" style={{ textAlign: 'right' }} key={prevPost.id} to={prevPost.slug}>
+            <div className="direction" >다음 글</div>
             <div className="title">{prevPost.title}</div>
           </Link>
         )}
