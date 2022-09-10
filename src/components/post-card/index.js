@@ -12,11 +12,18 @@ function PostCard({ post }) {
         <div className="info">
           <div className="date">{date}</div>
           <div className="categories">
-            {categories.map((category) => (
-              <div className="category" key={category}>
-                {category}
-              </div>
-            ))}
+            {post.categories
+              // .filter((category, i) => i < post.categories.length-1)
+              .map((category, i) => {
+                if (i !== post.categories.length - 1)
+                  return <div className="category" key={category}>
+                    {category},
+                  </div>
+                else
+                  return <div className="category" key={category}>
+                    {category}
+                  </div>
+              })}
           </div>
         </div>
       </Link>
