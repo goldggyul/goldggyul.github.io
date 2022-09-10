@@ -9,8 +9,10 @@
   .section-header {
     padding-bottom: 5px;
     border-bottom: 4px solid var(--primary-text-color);
-    font-weight: 700;
-    font-size: 30px;
+    // font-weight: 700;
+    font-size: 35px;
     color: var(--primary-text-color);
+    font-family:'catamaran';
+    font-weight: 900;
   }
 }
