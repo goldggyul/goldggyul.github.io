@@ -1,5 +1,70 @@
-@use '../../styles/markdown-style'as *;
-@use 'prismjs/themes/prism-tomorrow'as *;
+@use '../../styles/markdown-style' as *;
+@use 'prismjs/themes/prism-tomorrow' as *; // 마크다운 코드 하이라이팅
+@import url('https://cdn.jsdelivr.net/npm/hack-font@3/build/web/hack-subset.css');
+@import url('https://use.typekit.net/gla8kxu.css');
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'KOMACON';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.2/KOMACON.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'HS-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/HS-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'IM_Hyemin-Bold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2106@1.1/IM_Hyemin-Bold.woff2') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 300;
+  src: url('../../../static/fonts/NotoSansKR-Light.otf') format('woff2'),
+    url('../../../static/fonts/NotoSansKR-Light.otf') format('woff'),
+    url('../../../static/fonts/NotoSansKR-Light.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 400;
+  src: url('../../../static/fonts/NotoSansKR-Regular.otf') format('woff2'),
+    url('../../../static/fonts/NotoSansKR-Regular.otf') format('woff'),
+    url('../../../static/fonts/NotoSansKR-Regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 500;
+  src: url('../../../static/fonts/NotoSansKR-Medium.otf') format('woff2');
+}
+
+@font-face {
+  font-family: 'Noto Sans KR';
+  font-weight: 700;
+  src: url('../../../static/fonts/NotoSansKR-Bold.otf') format('woff2'),
+    url('../../../static/fonts/NotoSansKR-Bold.otf') format('woff'),
+    url('../../../static/fonts/NotoSansKR-Bold.otf') format('truetype');
+}
+
+// * {
+//   box-sizing: border-box;
+//   font-family: 'Noto Sans KR', sans-serif;
+// }
 
 .post-content {
   display: flex;
