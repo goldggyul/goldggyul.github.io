@@ -65,6 +65,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             id
             excerpt(pruneLength: 500, truncate: true)
+            tableOfContents
             fields {
               slug
             }

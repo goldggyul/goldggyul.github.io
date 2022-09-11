@@ -17,7 +17,7 @@
     "gatsby-plugin-robots-txt": "^1.7.0",
     "gatsby-plugin-sass": "^5.9.0",
     "gatsby-plugin-sharp": "^4.9.1",
-    "gatsby-remark-autolink-headers": "^5.9.0",
+    "gatsby-remark-autolink-headers": "^5.22.0",
     "gatsby-remark-copy-linked-files": "^5.9.0",
     "gatsby-remark-images": "^6.9.1",
     "gatsby-remark-prismjs": "^6.22.0",
@@ -36,6 +36,7 @@
     "react-gsap": "^3.2.1",
     "react-helmet": "^6.1.0",
     "react-rotating-text": "^1.4.1",
+    "react-scrollspy": "^3.4.3",
     "sass": "^1.43.4",
     "styled-components": "^5.3.5",
     "typeface-montserrat": "^1.1.13"
