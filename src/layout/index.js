@@ -26,7 +26,6 @@ const Layout = ({ children, showHitCounter=false }) => {
   const { title, siteUrl, author } = data.site.siteMetadata;
 
   const scrollHandler = () => {
-    console.log('hiiiiiiiiiiiii')
     const toc = document.getElementsByClassName("table-of-contents")
     if (!toc || toc.length < 0 || !toc[0] || !toc[0].style || toc[0].offsetWidth === 0) {
       return;
@@ -51,6 +50,8 @@ const Layout = ({ children, showHitCounter=false }) => {
       a.classList.remove("selected");
     })
     if (selected_anchor) {
+      selected_anchor = selected_anchor.replace(/(code-classlanguage-text)(.*?)(code)/g, "$2");
+
       const toc_selected = document.querySelector(".table-of-contents a[href='" + selected_anchor + "']");
       toc_selected && toc_selected.classList.add("selected");
     }
