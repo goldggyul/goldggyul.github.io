@@ -50,16 +50,16 @@ const Layout = ({ children, showHitCounter=false }) => {
       a.classList.remove("selected");
     })
     if (selected_anchor) {
-      selected_anchor = selected_anchor.replace(/(code-classlanguage-text)(.*?)(code)/g, "$2");
-
       const toc_selected = document.querySelector(".table-of-contents a[href='" + selected_anchor + "']");
       toc_selected && toc_selected.classList.add("selected");
     }
   };
 
   useEffect(() => { 
-    window.addEventListener("scroll", scrollHandler)
-    return () => window.removeEventListener('scroll', scrollHandler);
+    window.addEventListener("scroll", scrollHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollHandler);
+    };
   });
 
   return (

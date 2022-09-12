@@ -17,10 +17,35 @@ function BlogTemplate({ data }) {
   const { siteUrl, comments } = data.site?.siteMetadata;
   const utterancesRepo = comments?.utterances?.repo;
 
+  const tocHandler = () => { 
+    const toc = document.getElementsByClassName("table-of-contents")
+    if (!toc || toc.length < 0 || !toc[0] || !toc[0].style || toc[0].offsetWidth === 0) {
+      return;
+    }
+
+    const anchor_holder = document.getElementsByClassName("anchor before");
+    if (!anchor_holder || anchor_holder.length <= 0) {
+      return;
+    }
+
+    const anchor_holder_arr = Array.from(anchor_holder);
+
+    // code 포함된 제목은 toc에 링크 #code-classlanguage-text code 붙여서 생성한다.
+    // 자동적으로 만들어지는 링크가 위 규칙을 따라야 하기 때문
+    for (let a of anchor_holder_arr) {
+      var link = a.getAttribute("href");
+      var encoded_link = link.replace(/(code-classlanguage-text)(.*?)(code)/g, "$2");
+      const code_toc = document.querySelector(".table-of-contents a[href='" + encoded_link + "']");
+      code_toc && code_toc.setAttribute('href', link);
+    }
+  };
+
   useEffect(() => {
     if (!siteUrl) return;
     const namespace = siteUrl.replace(/(^\w+:|^)\/\//, '');
     const key = curPost.slug.replace(/\//g, '');
+
+    tocHandler();
 
     fetch(
       `https://api.countapi.xyz/${
