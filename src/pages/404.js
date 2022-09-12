@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from '../components/image';
 import Layout from '../layout';
 import Seo from '../components/seo';
 import './404style.scss';
