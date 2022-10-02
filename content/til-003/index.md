@@ -1,196 +1,268 @@
 ---
 emoji: 🍊
 title: 파이썬 문법 정리 | TIL ＃3
-date: '2022-09-11 22:44:00'
+date: '2022-09-13 22:28:00'
 author: goldggyul
 tags: TIL Python
 categories: TIL Python
 ---
 
-# `any`와 `all`
+# 리스트 `join`: 원하는 형태로 출력하기
 
-- 둘다 인자로 iterable한 객체(문자열, 리스트, 튜플 등)를 받는다.
-- 객체를 돌면서 조건을 검사한 후 True나 False를 반환한다.
-- any는 or, all은 and 연산
+> ### `str.join`(*iterable*)
+>
+> Return a string which is the concatenation of the strings in *iterable*. A [`TypeError`](https://docs.python.org/3/library/exceptions.html#TypeError) will be raised if there are any non-string values in *iterable*, including `bytes` objects. The separator between elements is the string providing this method.
+>
+> [python docs](https://docs.python.org/3/library/stdtypes.html?highlight=str%20join#str.join)
 
-```python
-vowels = 'aeiou'
-word = 'abcd'
-# word에 vowels의 문자 하나라도 포함되면 any는 True
-# 즉 not any(~)이므로 vowels가 하나도 없다면 return False
-if not any(v in word for v in vowels):
-  return False
-```
+- 인자로 iterable한 string을 넣으면 join시켜서 문자열을 만들어준다.
 
-# `min`과 `max`
+- int형 리스트를 원하는 형태로 join해서 출력해보자.
 
-- 둘다 인자로 iterable한 객체를 받는다.
-- 그래서 그냥 여러 인자를 줘도 된다.
+- 이 때 string join을 해야하므로 int형을 str형으로 변환해줘야한다.
 
-# String `format()`
+- 따라서 리스트의 요소들을 `str(i)`로 형변환 해주기 위해 map을 활용하자.
 
-- format을 이용해서 placeholder({})를 사용하여 더 쉽게 문자열을 만들 수 있다.
+  - `map`은 리스트(포함 iterable한 객체)의 요소를 지정된 함수로 처리해준다.
 
-```python
-txt1 = "My name is {fname}, I'm {age}".format(fname = "John", age = 36)
-txt2 = "My name is {0}, I'm {1}".format("John",36)
-txt3 = "My name is {}, I'm {}".format("John",36)
-```
+    <img src="./image-20220913223721374.png" alt="[출처](https://dojang.io/mod/page/view.php?id=2405)" style="zoom:50%;" />
 
-- 소수점 아래 n째 자리까지도 나타낼 수 있다.
-
-```
-txt = "For only {price:.2f} dollars!"
-print(txt.format(price = 49))
-# For only 49.00 dollars!
-```
-
-- [참고](https://www.w3schools.com/python/ref_string_format.asp)
-
-## `f-string` 문자열 안에 변수 쉽게 삽입하기
-
-- 일반적인 문자열('', "") 앞에 `f`또는 `F` 문자만 붙여주면 f-string이 된다.
-- f-string은 괄호를 사용하여 f-string 안에 표현식을 삽입할 수 있다.
+    > **참고 |** **시퀀스 객체와 반복 가능한 객체의 차이**
+    >
+    > 'Unit 11 시퀀스 자료형 활용하기'에서 리스트, 튜플, range, 문자열은 시퀀스 객체라고 했는데, 이 유닛에서는 반복 가능한 객체라고 했습니다. 시퀀스 객체와 반복 가능한 객체의 차이점은 무엇일까요?
+    >
+    > 다음 그림과 같이 반복 가능한 객체는 시퀀스 객체를 포함합니다.
+    >
+    > 리스트, 튜플, range, 문자열은 반복 가능한 객체이면서 시퀀스 객체입니다. 하지만, 딕셔너리와 세트는 반복 가능한 객체이지만 시퀀스 객체는 아닙니다. 왜냐하면 시퀀스 객체는 요소의 순서가 정해져 있고 연속적(sequence)으로 이어져 있어야 하는데, 딕셔너리와 세트는 요소(키)의 순서가 정해져 있지 않기 때문입니다. 따라서 시퀀스 객체가 반복 가능한 객체보다 좁은 개념입니다.
+    >
+    > 즉, 요소의 순서가 정해져 있고 연속적으로 이어져 있으면 시퀀스 객체, 요소의 순서와는 상관없이 요소를 한 번에 하나씩 꺼낼 수 있으면 반복 가능한 객체입니다.
+    >
+    > [참고](https://dojang.io/mod/page/view.php?id=2405)
 
 ```python
->>> first_name = "John"
->>> last_name = "Doe"
->>> f"Welcome, {first_name} {last_name}!"
-'Welcome, John Doe!'
+# 예를 들어 다음과 같은 리스트를
+# [1, 2, 3, 4, 5]
+# <1, 2, 3, 4, 5>
+# 위의 형태로 출력해야한다면
+nums = [i for i in range(1, 6)]
+print('{}{}{}'.format('<', ', '.join(map(str, nums)), '>'))
 ```
 
-- [참고](https://www.daleseo.com/python-f-strings/)
+# Queue
 
-# 삼항 연산자
+-  그냥 `list`를 활용하여 Queue, Stack을 사용할 수 있다.
 
-- `condition ? true : false`대신에 다르게 쓴다.
-- **`[True일 때] if [condition] else [False일 때]`**
-- 삼항 연산자도 중첩이 가능하지만 가독성을 생각하자.
+## list 활용
+
+- `pop(index)`: index의 **<u>원소 리턴</u>** + 해당 **<u>원소 삭제</u>**
+- 뒤가 아닌 앞에 데이터를 넣고 싶다면 (<u>deque</u>) `insert(index, x)`함수를 이용해서 앞에 데이터를 삽입할 수 있다.
 
 ```python
-# 짝수인지 홀수인지 판단하는 예제
-a = 10
-
-# 삼항 연산
-print("even") if a % 2 == 0 else print("odd")
-
-# 기본 연산
-if a % 2 == 0:
-    print("even")
-else:
-    print("odd")
-
+queue = []
+queue.append(1)
+queue.append(2)
+q.pop(0) # 1
 ```
 
-- [참고](https://blockdmask.tistory.com/551)
+- 하지만 list는 random accesss에 최적화된 자료구조로 list를 이용해서 pop, insert를 할 경우 성능에 좋지 않다. 만약 앞에서 삭제하거나 삽입한다면 그 뒤 데이터를 모두 당기거나 뒤로 밀어야하므로 `O(N)`의 시간이 들 것이다.
 
-# 여러 인자 리턴하기
+## `pop(index)`?
 
-- 파이썬은 함수에서 여러 인자 리턴하는 게 된다..!
+- index가 없다면 맨 뒤에서 pop한다.
+- 그럼 index말고  value로 삭제하고 싶을 땐 어떻게 할까?
 
-- 그냥 `return A`하듯이 `return A, B, C`하면 된다.
-
-- 어쩔 때는 하나 리턴하고 어쩔 땐 두개 리턴하는 것도 가능하다
-
-  ```python
-  # 짝수일 때만 2로 나눈 몫도 같이 리턴
-  def is_even(num):
-    if num % 2 == 0 and num > 0:
-      return True, num/2
-    else:
-      return False
-    
-  is_even(2) # (True, 1.0)
-  is_even(3) # False
-  ```
-
-- 리턴될 때는 때는 튜플이 반환된다. 그래서 하나의 튜플이 아니고 여러 변수에 `언패킹`할 수 있다.
-
-## [언패킹](https://codetorial.net/tips_and_examples/tuple_unpacking.html)
-
-- 언패킹 시 필요 없는 변수는 언더스코어(_)
-- 리스트로 받고 싶으면 *표시
+## `remove(value)`
 
 ```python
-# Unpacking 5
-a, b, *c, d = (1, 2, 3, 4, 5, 6)
-print(a)
-print(b)
-print(c)
-print(d)
+>>> li = [1,2,3]
+>>> li.pop()
+3
+>>> li.remove(2)
+>>> li
+[1]
+```
 
-# 출력
+## collections 모듈의 deque
+
+- `deque`를 이용하면 맨 앞 삽입, 삭제를  `O(1)`에 할 수 있다.
+
+```python
+>>> from collections import deque
+>>> deq = deque([1,2,3])
+>>> deq.append(4)
+>>> deq
+deque([1, 2, 3, 4])
+>>> deq.popleft()
 1
-2
-[3, 4, 5]
-6
+>>> deq
+deque([2, 3, 4])
+>>> deq.pop()
+4
+>>> deq
+deque([2, 3])
+>>> deq.appendleft(1)
+>>> deq
+deque([1, 2, 3])
 ```
+
+## queue 모듈의 Queue
+
+- 맨 앞 pop, 맨 뒤 삽입만 가능한 queue이다.
 
 ```python
-# * with underscore
-a, b, *_, d = (1, 2, 3, 4, 5, 6, 7)
-print(a)
-print(b)
-# print(c)
-print(d)
-
-# 출력
+>>> from queue import Queue
+>>> que = Queue()
+>>> que.put(1)
+>>> que.put(2)
+>>> que.put(3)
+>>> que.get()
 1
+>>> que.get()
 2
-7
+>>> que.empty()
+False
+>>> que.qsize()
+1
+>>> que.get()
+3
+>>> que.qsize()
+0
+>>> que.empty()
+True
 ```
 
-# [`zip()`](https://codetorial.net/tips_and_examples/zip.html)
+- 우선순위 큐는... 나중에 알아보도록 하자
 
-- 여러 리스트의 값을 동시에 사용할 때 유용하다
+# Stack
 
-- 이 때 가장 작은 리스트에 맞게 실행된다.
+- Stack 자료구조가 따로 있진 않고 list를 이용한다.
+- list 맨 뒤에서 삭제, 삽입하는 건 어차피 `O(1)`이니까 queue처럼 별도의 자료구조가 없는 것 같다.
 
-  ```python
-  >>> names = ['Peter Parker', 'Clark Kent', 'Wade Wilson', 'Bruce Wayne']
-  >>> heroes = ['Spiderman', 'Superman', 'Deadpool', 'Batman']
-  >>> universes = ['Marvel', 'DC', 'Marvel']
-  >>>
-  >>> for name, hero, universe in zip(names, heroes, universes):
-  ...     print(name + ' is actually ' + hero + ' from ' + universe)
-  ...
-  Peter Parker is actually Spiderman from Marvel
-  Clark Kent is actually Superman from DC
-  Wade Wilson is actually Deadpool from Marvel
-  ```
+```python
+>>> stack = []
+>>> stack.append(1)
+>>> stack.append(2)
+>>> stack.append(3)
+>>> stack[-1] # top
+3
+>>> stack
+[1, 2, 3]
+>>> stack.pop()
+3
+>>> stack
+[1, 2]
+```
 
-- 한 변수로 묶을 수도 있다.
 
-  ```python
-  names = ['Peter Parker', 'Clark Kent', 'Wade Wilson', 'Bruce Wayne']
-  heroes = ['Spiderman', 'Superman', 'Deadpool', 'Batman']
-  universes = ['Marvel', 'DC', 'Marvel', 'DC']
-  
-  for values in zip(names, heroes, universes):
-      print(values[0] + ' is actually ' + values[1] + ' from ' + values[2])
-  ```
 
-# `Array[::]` - [Extended Slices](https://docs.python.org/release/2.3.5/whatsnew/section-slices.html)
+# [딕셔너리](https://wikidocs.net/16)
 
-- `arr[A:B:C]`는 <u>A부터 B까지 C의 간격으로 배열을 만들라</u>는 뜻이다.
+- key-value 자료구조이다.
+- 이 때 key가 int일 수도 있고 문자열일 수도 있고 리스트일 수도 있고 다른 객체일 수 있다.
 
-- A가 생략되면 처음부터, B가 생략되면 끝까지, C가 생략되면 한칸 간격
+```python
+>>> a = {1: 'a'}
+>>> a[2] = 'b'
+>>> a
+{1: 'a', 2: 'b'}
+>>> a['name'] = 'pey'
+>>> a
+{1: 'a', 2: 'b', 'name': 'pey'}
+>>> a[3] = [1,2,3]
+>>> a
+{1: 'a', 2: 'b', 'name': 'pey', 3: [1, 2, 3]}
+```
 
-  - C가 -일 경우 역순이다.
+## `del` 삭제
 
-  - 따라서 word == word[::-1]을 통해 회문을 쉽게 구할 수 있다.
+```python
+>>> del a[1]
+>>> a
+{2: 'b', 'name': 'pey', 3: [1, 2, 3]}
+```
+
+### list
+
+- list 역시 `del`을 이용하여 삭제 가능하다.
+
+| 종류     | 내용                                      |
+| -------- | ----------------------------------------- |
+| clear()  | 모든 요소 삭제                            |
+| pop()    | 지정한 위치 값을 삭제하고 리턴            |
+| remove() | 지정한 위치 값과 같은 값은 (처음) 값 삭제 |
+| del      | 위치 또는 범위를 지정 삭제                |
+
+- [참고](https://ponyozzang.tistory.com/587)
+
+```python
+>>> li = list(range(10))
+>>> li
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> del li[5] # 5번째 삭제
+>>> li
+[0, 1, 2, 3, 4, 6, 7, 8, 9]
+>>> del li[:2] # 처음 ~ 2번째 전까지, 즉 0, 1번째 요소 삭제
+>>> li
+[2, 3, 4, 6, 7, 8, 9]
+>>> del li[1:-2] # 1번째 ~ 뒤에서 2번째 전까지, 즉 여기선 1번째 ~ 4번째
+>>> li
+[2, 8, 9]
+>>> del li[::2] # 처음부터 끝까지 2의 간격으로 삭제 
+>>> li
+[8]
+```
+
+
+
+## 주의
+
+- key가 중복된다면 하나를 제외하고 모두 무시한다. 또한 **key에 list는 쓸 수 없지만 튜플은 쓸 수 있다**.
+- **<u>key에는 immutable한 값만 쓸 수 있기 때문이다.</u>**
+
+## 각종 함수
+
+- key가 있는 지 확인하기
+
+  - 그냥 `in`을 활용하여 `key in dict`로 확인 가능하다.
+
+- key, value 값들 얻기
+
+  - `dict.keys()`
+
+  - `dict.values()`
+
+  - `dict.items()`: 각 key, value를 튜플로 묶은 값을 `dict_items` 객체로 리턴한다.
 
     ```python
-    >>> word = '토마토마'
-    >>> word[::-1]
-    '마토마토'
-    >>> word = '토마토'
-    >>> word[::-1]
-    '토마토'
+    >>> a.items()
+    dict_items([('name', 'pey'), ('phone', '0119993323'), ('birth', '1118')])
     ```
 
-- 이 때 `A <= X < B`이다. 즉 B는 포함하지 않는다
+- 다 지우기
+
+  `clear()`
+
+- value 얻기
+
+  `dict.get(key)`
+
+  - 이 때 `dict[key]`를 사용한다면 key가 없을 때 오류가 나지만, `dict.get(key)`를 이용하면 `None`이 리턴된다.
+
+    ```python
+    >>> a = {'name':'pey', 'phone':'0119993323', 'birth': '1118'}
+    >>> print(a.get('nokey'))
+    None
+    >>> print(a['nokey'])
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    KeyError: 'nokey'
+    ```
+
+    
+
+
 
 ```toc
+
 ```
 

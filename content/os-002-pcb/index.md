@@ -103,6 +103,8 @@ Context Switching이란 CPU를 차지하던 프로세스가 나가고 새로운 
 
 ### ☘️ 절차
 
+
+
 프로세스 P1과  P2의 Context switching 과정을 좀 더 살펴봅시다.
 
 ![image-20220912031430804](./image-20220912031430804.png)
