@@ -99,3 +99,16 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   createBlogPages({ createPage, results });
   createPostsPages({ createPage, results });
 };
+
+exports.sourceNodes = ({ actions, schema }) => {
+  const { createTypes } = actions
+  createTypes(`
+    type MarkdownRemarkFrontmatter {
+      imageEmoji: String
+    }
+
+    type MarkdownRemark implements Node {
+      frontmatter: MarkdownRemarkFrontmatter
+    }
+  `)
+};

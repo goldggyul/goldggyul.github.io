@@ -2,11 +2,12 @@ export default class Post {
   constructor(node) {
     const { id, html, excerpt, frontmatter, fields, tableOfContents } = node;
     const { slug } = fields;
-    const { emoji, categories, title, author, date } = frontmatter;
+    const { emoji, imageEmoji, categories, title, author, date } = frontmatter;
 
     this.id = id;
     this.excerpt = excerpt;
     this.emoji = emoji;
+    this.imageEmoji = imageEmoji;
     this.html = html;
     this.slug = slug;
     this.title = title;

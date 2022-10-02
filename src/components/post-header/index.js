@@ -1,11 +1,13 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import './style.scss';
+import ImgEmoji from '../img-emoji';
 
 function PostHeader({ post, viewCount }) {
   return (
     <header className="post-header">
       {post.emoji && <div className="emoji">{post.emoji}</div>}
+      {post.imageEmoji && <ImgEmoji src={post.imageEmoji} />}
       <div className="info">
         <div className="categories">
           {post.categories
