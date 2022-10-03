@@ -1107,3 +1107,10 @@
   font-size: 15px;
   color: #6a737d;
 }
+
+.markdown mark {
+  background-color: var(--mark-color);
+  border-radius: 0.3em;
+  padding: 0 0.3em;
+  margin: 0 0.1em;
+}
