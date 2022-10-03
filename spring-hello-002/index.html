@@ -344,21 +344,70 @@
 <li>
 <p>테스트 코드는 빌드될 때 실제 코드에 포함되지 않는다.</p>
 </li>
+<li>
+<p>테스트 작성 시에는 <u><strong>given, when, then</strong></u>으로 주석을 표시해서 작성하는 게 도움이 된다. 그리고 상황에 안 맞을 때 점점 바꿔나가자.</p>
+</li>
 </ul>
+<h3 id="예외-확인" style="position:relative;"><a href="#%EC%98%88%EC%99%B8-%ED%99%95%EC%9D%B8" aria-label="예외 확인 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>예외 확인</h3>
+<ul>
+<li>
+<p>예외를 확인하는 것이 정상 동작보다 중요할 수도 있다.</p>
+</li>
+<li>
+<p>예외를 확인할 때는 <code class="language-text">try-catch</code>를 이용할 수도 있다.</p>
+<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> 중복_회원_예외<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// given</span>
+  <span class="token class-name">Member</span> member1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  member1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Member</span> member2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  member2<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// when</span>
+  memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  
+  <span class="token comment">// 중복 이름이므로 예외가 터져야 한다.</span>
+  <span class="token comment">// try-catch 이용</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fail</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// exception이 발생 안하고 여기 도달하면 실패</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">IllegalStateException</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+		<span class="token function">assertThat</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEqualTo</span><span class="token punctuation">(</span><span class="token string">"이미 존재하는 회원입니다."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre></div>
+</li>
+<li>
+<p>하지만 try-catch는 애매하니까(?) 제공되는 좋은 문법인 <code class="language-text">assertThrows</code>를 사용해보자.</p>
+<ul>
+<li><code class="language-text">assertThrows(터질 exception, 람다)</code></li>
+</ul>
+<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token annotation punctuation">@Test</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> 중복_회원_예외<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// given</span>
+  <span class="token class-name">Member</span> member1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  member1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token class-name">Member</span> member2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  member2<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// when</span>
+  memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment">// 중복 이름이므로 예외가 터져야 한다.</span>
+  <span class="token comment">// try-catch 이용</span>
+  <span class="token comment">// try {</span>
+  <span class="token comment">//     memberService.join(member2);</span>
+  <span class="token comment">//     fail(); // exception이 발생 안하고 여기 도달하면 실패</span>
+  <span class="token comment">// } catch (IllegalStateException e) {</span>
+  <span class="token comment">//     assertThat(e.getMessage()).isEqualTo("이미 존재하는 회원입니다.");</span>
+  <span class="token comment">// }</span>
+  <span class="token class-name">IllegalStateException</span> e <span class="token operator">=</span> <span class="token function">assertThrows</span><span class="token punctuation">(</span><span class="token class-name">IllegalStateException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">assertThat</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEqualTo</span><span class="token punctuation">(</span><span class="token string">"이미 존재하는 회원입니다."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+</li>
+<li>
+<p>중간 코드</p>
 <div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">MemberServiceTest</span> <span class="token punctuation">{</span>
-    <span class="token class-name">MemberService</span> memberService<span class="token punctuation">;</span>
-    <span class="token class-name">MemoryMemberRepository</span> memberRepository<span class="token punctuation">;</span>
-    <span class="token annotation punctuation">@BeforeEach</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        memberRepository <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryMemberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        memberService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemberService</span><span class="token punctuation">(</span>memberRepository<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  
-    <span class="token annotation punctuation">@AfterEach</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        memberRepository<span class="token punctuation">.</span><span class="token function">clearStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  
+
+    <span class="token class-name">MemberService</span> memberService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemberService</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
     <span class="token annotation punctuation">@Test</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> 회원가입<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
         <span class="token comment">//Given</span>
@@ -367,48 +416,81 @@
         <span class="token comment">//When</span>
         <span class="token class-name">Long</span> saveId <span class="token operator">=</span> memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member<span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token comment">//Then</span>
-        <span class="token class-name">Member</span> findMember <span class="token operator">=</span> memberRepository<span class="token punctuation">.</span><span class="token function">findById</span><span class="token punctuation">(</span>saveId<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">Member</span> findMember <span class="token operator">=</span> memberService<span class="token punctuation">.</span><span class="token function">findOne</span><span class="token punctuation">(</span>saveId<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">assertThat</span><span class="token punctuation">(</span>member<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEqualTo</span><span class="token punctuation">(</span>findMember<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
-  
+
     <span class="token annotation punctuation">@Test</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> 중복_회원_예외<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">throws</span> <span class="token class-name">Exception</span> <span class="token punctuation">{</span>
-        <span class="token comment">//Given</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> 중복_회원_예외<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment">// given</span>
         <span class="token class-name">Member</span> member1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         member1<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token class-name">Member</span> member2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Member</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         member2<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"spring"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token comment">//When</span>
+        <span class="token comment">// when</span>
         memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member1<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token class-name">IllegalStateException</span> e <span class="token operator">=</span> <span class="token function">assertThrows</span><span class="token punctuation">(</span><span class="token class-name">IllegalStateException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span>
-                <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment">//예외가 발생해야 한다.</span>
+				
+      	<span class="token comment">// then</span>
+        <span class="token class-name">IllegalStateException</span> e <span class="token operator">=</span> <span class="token function">assertThrows</span><span class="token punctuation">(</span><span class="token class-name">IllegalStateException</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-></span> memberService<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span>member2<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
         <span class="token function">assertThat</span><span class="token punctuation">(</span>e<span class="token punctuation">.</span><span class="token function">getMessage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">isEqualTo</span><span class="token punctuation">(</span><span class="token string">"이미 존재하는 회원입니다."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
+</code></pre></div>
+</li>
+<li>
+<p>하지만 여기까지 문제점은 역시 테스트 끼리 영향을 줄 수 있다는 것이다. 따라서 repository를 매 메소드마다 비워줘야 한다.</p>
+</li>
+<li>
+<p>어라라? 근데 지금은 <code class="language-text">MemberService</code>밖에 없기 때문에 그 전 리포지토리 테스트처럼 clear를 해줄 수 없다.</p>
+</li>
+<li>
+<p>그럼 <code class="language-text">MemoryMemberRepository</code>를 선언해서 그 전 테스트와 같이 <code class="language-text">@AfterEach</code>를 이용해서 비워주면 된다.</p>
+<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token class-name">MemoryMemberRepository</span> memoryRepository <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryMemberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@AfterEach</span>
+<span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">afterEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  memoryRepository<span class="token punctuation">.</span><span class="token function">clearStore</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span></code></pre></div>
+</li>
+<li>
+<p>위와 같이 추가하면 매 테스트가 끝나고 다시 clear를 한다.</p>
+</li>
+<li>
+<p>어라라? 근데 <code class="language-text">MemberService</code>와 관련 없이 다른 객체인데 어떻게 clear된 걸까?</p>
+<ul>
+<li><code class="language-text">MemoryMemberRepository</code>에서 데이터를 저장할 때 static 맵을 쓰기 때문이다.</li>
+</ul>
+</li>
+<li>
+<p>근데 사실 그래도 다른 객체를 만드는 건 좀 찝찝하고💦,  <u><strong>static이 아닐 때는 다른 인스턴스로 문제가 생길 것</strong></u>이다.</p>
+</li>
+<li>
+<p>따라서 <code class="language-text">MemberService</code>에서 repository를 <u><strong>외부에서 넣어주는 것</strong></u>으로 변경하자.</p>
+<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MemberService</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">MemberRepository</span> memberRepository<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">MemberService</span><span class="token punctuation">(</span><span class="token class-name">MemberRepository</span> memberRepository<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>memberRepository <span class="token operator">=</span> memberRepository<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token comment">// ...</span>
+<span class="token punctuation">}</span></code></pre></div>
+<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">MemberServiceTest</span> <span class="token punctuation">{</span>
+    <span class="token class-name">MemberService</span> memberService<span class="token punctuation">;</span>
+    <span class="token class-name">MemoryMemberRepository</span> memoryRepository<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@BeforeEach</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">beforeEach</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        memoryRepository <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemoryMemberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        memberService <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MemberService</span><span class="token punctuation">(</span>memoryRepository<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token comment">// ...</span>
 <span class="token punctuation">}</span></code></pre></div>
 <ul>
-<li><u><strong>given, when, then</strong></u>으로 주석을 표시해서 작성하는 게 도움이 된다. 그리고 상황에 안 맞을 때 점점 바꿔나가자.</li>
+<li><code class="language-text">@BeforeEach</code>역시 각 메소드 전에 호출된다.</li>
 </ul>
-<h2 id="-스프링-빈과-의존관계" style="position:relative;"><a href="#-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88%EA%B3%BC-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84" aria-label=" 스프링 빈과 의존관계 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>📌 스프링 빈과 의존관계</h2>
-<h3 id="컴포넌트-스캔과-자동-의존관계-설정" style="position:relative;"><a href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%8A%A4%EC%BA%94%EA%B3%BC-%EC%9E%90%EB%8F%99-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EC%84%A4%EC%A0%95" aria-label="컴포넌트 스캔과 자동 의존관계 설정 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>컴포넌트 스캔과 자동 의존관계 설정</h3>
-<ul>
-<li>생성자에 <code class="language-text">@Autowired</code>가 있으면 스프링이 연관된 객체를 스프링 컨테이너에서 찾아서 넣어준다. 이렇게 객체 의존관계를 외부에서 넣어주는 것을 DI (Dependency Injection), 의존성 주입이라 한다.</li>
-<li>이 때 스프링 빈으로 자바 코드를 통해 직접 등록할 수도 있다.</li>
-</ul>
-<h3 id="자바-코드로-직접-스프링-빈-등록하기" style="position:relative;"><a href="#%EC%9E%90%EB%B0%94-%EC%BD%94%EB%93%9C%EB%A1%9C-%EC%A7%81%EC%A0%91-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0" aria-label="자바 코드로 직접 스프링 빈 등록하기 permalink" class="anchor before"><svg aria-hidden="true" focusable="false" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>자바 코드로 직접 스프링 빈 등록하기</h3>
-<div class="gatsby-highlight" data-language="java"><pre class="language-java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SpringConfig</span> <span class="token punctuation">{</span>
-   <span class="token annotation punctuation">@Bean</span>
-   <span class="token keyword">public</span> <span class="token class-name">MemberService</span> <span class="token function">memberService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-   		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MemberService</span><span class="token punctuation">(</span><span class="token function">memberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">}</span>
-  
-   <span class="token annotation punctuation">@Bean</span>
-   <span class="token keyword">public</span> <span class="token class-name">MemberRepository</span> <span class="token function">memberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  		<span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">MemoryMemberRepository</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-   <span class="token punctuation">}</span>
-<span class="token punctuation">}</span></code></pre></div>
-<ul>
-<li>후에 바꾸기 위해서 직접 자바 코드로 빈을 설정하자!</li>
+</li>
+<li>
+<p>이렇게 직접 new를 하지 않고 외부에 넣어 주는 것을 <code class="language-text">Dependency Injection(DI)</code>라고 한다.</p>
+</li>
 </ul>
 <div class="table-of-contents">
 <ul>
@@ -433,13 +515,7 @@
 <ul>
 <li><a href="#%ED%9A%8C%EC%9B%90-%EC%84%9C%EB%B9%84%EC%8A%A4">회원 서비스</a></li>
 <li><a href="#%ED%9A%8C%EC%9B%90-%EC%84%9C%EB%B9%84%EC%8A%A4-%ED%85%8C%EC%8A%A4%ED%8A%B8">회원 서비스 테스트</a></li>
-</ul>
-</li>
-<li>
-<p><a href="#-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88%EA%B3%BC-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84">📌 스프링 빈과 의존관계</a></p>
-<ul>
-<li><a href="#%EC%BB%B4%ED%8F%AC%EB%84%8C%ED%8A%B8-%EC%8A%A4%EC%BA%94%EA%B3%BC-%EC%9E%90%EB%8F%99-%EC%9D%98%EC%A1%B4%EA%B4%80%EA%B3%84-%EC%84%A4%EC%A0%95">컴포넌트 스캔과 자동 의존관계 설정</a></li>
-<li><a href="#%EC%9E%90%EB%B0%94-%EC%BD%94%EB%93%9C%EB%A1%9C-%EC%A7%81%EC%A0%91-%EC%8A%A4%ED%94%84%EB%A7%81-%EB%B9%88-%EB%93%B1%EB%A1%9D%ED%95%98%EA%B8%B0">자바 코드로 직접 스프링 빈 등록하기</a></li>
+<li><a href="#%EC%98%88%EC%99%B8-%ED%99%95%EC%9D%B8">예외 확인</a></li>
 </ul>
 </li>
 </ul>
