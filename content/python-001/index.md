@@ -1,7 +1,7 @@
 ---
 imageEmoji: python-logo-only.png
 title: 파이썬으로 2차원 리스트 회전하기 / 그래서 list(zip(*matrix[::-1]))이 뭔데... | zip(), packing, unpacking (*)
-date: '2022-10-04 14:25:00'
+date: '2022-10-03 14:25:00'
 author: goldggyul
 tags: Python
 categories: Python
