@@ -1,6 +1,6 @@
 ---
 imageEmoji: spring-boot-logo.png
-title: 스프링 빈과 의존관계 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 ＃3
+title: 스프링 빈과 의존관계 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 3일차
 date: '2022-10-04 02:52:00'
 author: goldggyul
 tags: 강의

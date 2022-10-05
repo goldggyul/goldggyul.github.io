@@ -12,9 +12,9 @@ categories: 운영체제
 >
 > 1. [프로세스의 개요](https://goldggyul.github.io/os-001-process/)
 > 2. [프로세스 제어 블록과 문맥 교환](https://goldggyul.github.io/os-002-pcb/)
-> 3. [프로세스의 연산](https://goldggyul.github.io/os-003-process-struct/)
-> 4. [스레드](https://goldggyul.github.io/os-004-thread/)
-> 5. [[심화학습] 동적 할당 영역과 시스템 호출](https://goldggyul.github.io/os-005-system-call/)
+> 3. 프로세스의 연산
+> 4. 스레드
+> 5. [심화학습] 동적 할당 영역과 시스템 호출
 
 # 프로세스의 개요
 

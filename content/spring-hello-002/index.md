@@ -1,6 +1,6 @@
 ---
 imageEmoji: spring-boot-logo.png
-title: 회원 관리 예제 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 ＃3
+title: 회원 관리 예제 / 백엔드 개발 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 3일차
 date: '2022-10-03 23:03:00'
 author: goldggyul
 tags: 강의

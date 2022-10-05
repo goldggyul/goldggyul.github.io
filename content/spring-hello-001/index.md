@@ -1,6 +1,6 @@
 ---
 imageEmoji: spring-boot-logo.png
-title: 스프링 웹 개발 기초 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 ＃2
+title: 스프링 웹 개발 기초 - 스프링 입문 | 매일 1시간 👨🏻‍🏫 2일차
 date: '2022-10-03 20:31:00'
 author: goldggyul
 tags: 강의
