@@ -1,5 +1,5 @@
 ---
-emoji: 🐰
+imageEmoji: working.png
 title: 01. 협력하는 객체들의 공동체 |📓 객체지향의 사실과 오해
 date: '2022-10-06 00:41:00'
 author: goldggyul
