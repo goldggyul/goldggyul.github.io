@@ -68,7 +68,7 @@ categories: 강의
 
 목적? 실제로 서버가 실행 되고 런타임에 MemberRepository에 어떤 구현체가 들어갈 지는 클래스 다이어그램만으로는 알 수 없다. 런타임에 동적으로 결정된다. 따라서 판단하기 어려우므로, 객체 다이어그램에서 실제 사용하는 관계를 나타낸다. 실제로 new 한 객체들끼리의 참조를 볼 수 있다.
 
-클래스 다이어그램은 정적, 객체 다이러그램은 동적인 관계를 나타낸다.
+클래스 다이어그램은 정적, 객체 다이어그램은 동적인 관계를 나타낸다.
 
 ## 📌 회원 도메인 개발
 
@@ -251,5 +251,121 @@ class MemberServiceTest {
 
 - 단축키
   - `f2`: 오류 있는 곳으로 이동 (패키지 임포트 못했을 때 f2 누르고 옵션 엔터 하는 식으로 이용)
+  
+- DiscountPolicy(Interface): 할인 정책
+
+  - 멤버를 인자로 받고 등급에 따라서 할인되는 금액을 리턴
+
+  ```java
+  public interface DiscountPolicy {
+      /**
+       * @return 할인 대상 금액
+       */
+      int discount(Member member, int price);
+  }
+  ```
+
+- FixDiscountPolicy(구현체)
+
+  ```java
+  public class FixDiscountPolicy implements DiscountPolicy {
+  
+      private int discountFixAmount = 1000; // 1000원 정액 할인
+  
+      @Override
+      public int discount(Member member, int price) {
+          // enum은 ==으로 비교
+          // 등급만 받아도 됐지만 확장성 등을 고려 .. 이건 상황에 따라 고민해봐야함
+          if (member.getGrade() == Grade.VIP) {
+              return discountFixAmount;
+          } else {
+              return 0;
+          }
+      }
+  }
+  ```
+
+- Order
+
+  ```java
+  public class Order {
+      private Long memberId;
+      private String itemName;
+      private int itemPrice;
+      private int discountPrice;
+    
+    	// 생성자, Getter, Setter, toString
+    
+      // 계산
+      public int calculatePrice() {
+          return itemPrice - discountPrice;
+      }
+  }
+  ```
+
+- OrderService(인터페이스)
+
+  ```java
+  public interface OrderService {
+      // 주문 생성 메세지 -> 주문 결과 반환
+      Order createOrder(Long memberId, String itemName, int itemPrice);
+  }
+  ```
+
+- OrderServiceImple(구현체)
+
+  - 주문 서비스는 정말 <u>**주문만**</u>해서 넘긴다. 이렇게 함으로써 할인 정책에 변화가 생겨도 주문 서비스는 영향을 받지 않는다.
+  - SRP 원칙이 잘 지켜졌다.
+
+  ```java
+  public class OrderServiceImpl implements OrderService {
+  
+      private final MemberRepository memberRepository = new MemoryMemberRepository();
+      private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  
+      @Override
+      public Order createOrder(Long memberId, String itemName, int itemPrice) {
+          Member member = memberRepository.findById(memberId);
+          // 할인은 모르겠고 네가 알아서 해줘~ 난 정말 주문만. -> SRP good
+          int discountPrice = discountPolicy.discount(member, itemPrice);
+          return new Order(memberId, itemName, itemPrice, discountPrice);
+      }
+  }
+  ```
+
+  
 
 ## 📌 주문과 할인 도메인 실행과 테스트
+
+단위 테스트를 잘 만드는 것이 굉장히 중요하다.
+
+```java
+public class OrderServiceTest {
+    MemberService memberService = new MemberServiceImpl();
+    OrderService orderService = new OrderServiceImpl();
+
+    @Test
+    void createOrder(){
+        Long memberId = 1L;
+        Member member = new Member(memberId, "memberA", Grade.VIP);
+        memberService.join(member);
+
+        // VIP 인 경우 1000원 할인이 됐는가
+        Order order = orderService.createOrder(memberId, "itemA", 10000);
+        Assertions.assertThat(order.getDiscountPrice()).isEqualTo(1000);
+    }
+}
+```
+
+-------
+
+## 🍄 정리
+
+역할과 구현을 잘 분리해서 만들자.
+
+
+
+
+
+```toc
+```
